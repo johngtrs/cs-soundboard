@@ -1,0 +1,382 @@
+---
+globs: *.tsx,*.ts
+description: Component patterns and examples for the CS 1.6 Soundboard
+---
+
+# Component Patterns for CS 1.6 Soundboard
+
+## Component Examples
+
+### Sound Button Component Pattern
+```tsx
+interface SoundButtonProps {
+  soundName: string;
+  soundPath: string;
+  label: string;
+  onPlay?: (soundName: string) => void;
+  isPlaying?: boolean;
+  className?: string;
+}
+
+export default function SoundButton({ 
+  soundName, 
+  soundPath, 
+  label, 
+  onPlay,
+  isPlaying = false,
+  className 
+}: SoundButtonProps): JSX.Element {
+  // Implementation
+}
+```
+
+### Custom Hook Pattern
+```tsx
+interface UseAudioPlayerReturn {
+  play: () => Promise<void>;
+  stop: () => void;
+  isPlaying: boolean;
+  isLoading: boolean;
+  error: Error | null;
+  volume: number;
+  setVolume: (volume: number) => void;
+}
+
+export function useAudioPlayer(audioSrc: string): UseAudioPlayerReturn {
+  // Implementation with proper cleanup
+}
+```
+
+## File Naming Conventions
+
+- Components: `SoundButton.tsx`, `SoundGrid.tsx`, `VolumeControl.tsx`
+- Hooks: `useAudioPlayer.ts`, `useSoundboard.ts`, `useKeyboardShortcuts.ts`
+- Types: `sound.types.ts`, `audio.types.ts`
+- Utils: `audioUtils.ts`, `soundMapper.ts`
+- Constants: `sounds.constants.ts`, `config.constants.ts`
+
+## Import Order
+
+Organize imports in this order:
+1. React and React-related imports
+2. Third-party library imports (Framer Motion, shadcn, etc.)
+3. Internal utilities and hooks
+4. Types and interfaces
+5. Constants
+6. Styles (if any CSS modules)
+
+```tsx
+// React
+import { useState, useEffect, useCallback } from 'react';
+
+// Third-party
+import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+
+// Internal
+import { useAudioPlayer } from '@/hooks/useAudioPlayer';
+import { cn } from '@/lib/utils';
+
+// Types
+import type { Sound, SoundCategory } from '@/types/sound.types';
+
+// Constants
+import { SOUND_CATEGORIES } from '@/constants/sounds.constants';
+```
+
+## Props Patterns
+
+### Always Define Props Interfaces
+```tsx
+// ✅ Good
+interface VolumeControlProps {
+  volume: number;
+  onVolumeChange: (volume: number) => void;
+  min?: number;
+  max?: number;
+  step?: number;
+}
+
+// ❌ Bad
+function VolumeControl(props: any) { }
+```
+
+### Optional vs Required Props
+```tsx
+interface SoundCardProps {
+  // Required props
+  sound: Sound;
+  onPlay: (sound: Sound) => void;
+  
+  // Optional props with defaults
+  showLabel?: boolean;
+  variant?: 'default' | 'compact' | 'minimal';
+  className?: string;
+  
+  // Optional callbacks
+  onError?: (error: Error) => void;
+  onLoadingChange?: (isLoading: boolean) => void;
+}
+```
+
+## State Management Patterns
+
+### Component State
+```tsx
+// Use descriptive state variable names
+const [isPlaying, setIsPlaying] = useState<boolean>(false);
+const [currentSound, setCurrentSound] = useState<Sound | null>(null);
+const [volume, setVolume] = useState<number>(0.8);
+const [activeSounds, setActiveSounds] = useState<Set<string>>(new Set());
+```
+
+### Derived State
+```tsx
+// Use useMemo for computed values
+const sortedSounds = useMemo(() => {
+  return sounds.sort((a, b) => a.label.localeCompare(b.label));
+}, [sounds]);
+
+const hasActiveSounds = useMemo(() => {
+  return activeSounds.size > 0;
+}, [activeSounds]);
+```
+
+## Event Handlers
+
+### Handler Naming
+```tsx
+// Use "handle" prefix for event handlers
+const handleSoundPlay = useCallback((soundName: string) => {
+  // Implementation
+}, []);
+
+const handleVolumeChange = useCallback((newVolume: number) => {
+  // Implementation
+}, []);
+
+const handleKeyPress = useCallback((event: KeyboardEvent) => {
+  // Implementation
+}, []);
+```
+
+### Properly Typed Events
+```tsx
+const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
+  event.preventDefault();
+  // Implementation
+};
+
+const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const value = event.target.value;
+  // Implementation
+};
+```
+
+## Framer Motion Patterns
+
+### Animation Variants
+```tsx
+const buttonVariants = {
+  idle: { scale: 1, opacity: 1 },
+  hover: { scale: 1.05, opacity: 0.9 },
+  tap: { scale: 0.95 },
+  playing: { scale: [1, 1.1, 1], transition: { duration: 0.3 } }
+};
+
+<motion.button
+  variants={buttonVariants}
+  initial="idle"
+  whileHover="hover"
+  whileTap="tap"
+  animate={isPlaying ? "playing" : "idle"}
+>
+  {label}
+</motion.button>
+```
+
+### Stagger Children
+```tsx
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
+
+<motion.div
+  variants={containerVariants}
+  initial="hidden"
+  animate="visible"
+>
+  {sounds.map(sound => (
+    <motion.div key={sound.id} variants={itemVariants}>
+      {/* Sound button */}
+    </motion.div>
+  ))}
+</motion.div>
+```
+
+## Error Handling
+
+### Try-Catch in Async Functions
+```tsx
+const playSound = async (soundPath: string): Promise<void> => {
+  try {
+    const audio = new Audio(soundPath);
+    await audio.play();
+  } catch (error) {
+    console.error('Failed to play sound:', error);
+    if (error instanceof Error) {
+      setError(error);
+    } else {
+      setError(new Error('Unknown error occurred'));
+    }
+  }
+};
+```
+
+### Error Boundaries
+```tsx
+// Create error boundary components for robust error handling
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
+  fallback?: React.ReactNode;
+}
+```
+
+## Tailwind Class Patterns
+
+### Use cn() Utility for Conditional Classes
+```tsx
+import { cn } from '@/lib/utils';
+
+<button
+  className={cn(
+    // Base styles
+    "px-4 py-2 rounded-lg font-semibold transition-colors",
+    // Conditional styles
+    isPlaying && "bg-green-500 text-white",
+    !isPlaying && "bg-gray-700 text-gray-200",
+    isDisabled && "opacity-50 cursor-not-allowed",
+    // Custom classes
+    className
+  )}
+>
+  {label}
+</button>
+```
+
+### Responsive Design
+```tsx
+<div className={cn(
+  // Mobile first
+  "grid grid-cols-2 gap-2 p-4",
+  // Tablet
+  "sm:grid-cols-3 sm:gap-3 sm:p-6",
+  // Desktop
+  "md:grid-cols-4 md:gap-4 md:p-8",
+  // Large desktop
+  "lg:grid-cols-5 lg:gap-6 lg:p-10"
+)}>
+  {/* Sound buttons */}
+</div>
+```
+
+## Custom Hooks Best Practices
+
+### Cleanup in useEffect
+```tsx
+export function useAudioPlayer(src: string) {
+  useEffect(() => {
+    const audio = new Audio(src);
+    
+    // Setup
+    audio.load();
+    
+    // Cleanup function
+    return () => {
+      audio.pause();
+      audio.src = '';
+    };
+  }, [src]);
+}
+```
+
+### Return Objects, Not Arrays (for multiple values)
+```tsx
+// ✅ Good - Clear what each value represents
+export function useSoundboard() {
+  return {
+    sounds,
+    playSound,
+    stopSound,
+    isPlaying,
+    currentSound
+  };
+}
+
+// ❌ Bad - Hard to remember order
+export function useSoundboard() {
+  return [sounds, playSound, stopSound, isPlaying, currentSound];
+}
+```
+
+## Performance Optimization
+
+### Memoization
+```tsx
+// Memoize expensive computations
+const filteredSounds = useMemo(() => {
+  return sounds.filter(sound => 
+    sound.label.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+}, [sounds, searchQuery]);
+
+// Memoize callbacks passed to children
+const handlePlay = useCallback((soundId: string) => {
+  playSound(soundId);
+}, [playSound]);
+
+// Memoize components that don't need to re-render
+const MemoizedSoundButton = memo(SoundButton);
+```
+
+## Type Definitions
+
+### Sound Types
+```tsx
+interface Sound {
+  id: string;
+  name: string;
+  label: string;
+  path: string;
+  category: SoundCategory;
+  duration?: number;
+  keyboardShortcut?: string;
+}
+
+type SoundCategory = 
+  | 'radio-commands'
+  | 'actions'
+  | 'team-communication'
+  | 'game-events';
+
+interface SoundState {
+  currentlyPlaying: Set<string>;
+  volume: number;
+  isMuted: boolean;
+}
+```
+
+---
+
+**Note**: These patterns should be consistently applied across all components in the soundboard project. When in doubt, refer to these examples.

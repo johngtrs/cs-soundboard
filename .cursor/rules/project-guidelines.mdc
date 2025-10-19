@@ -1,0 +1,227 @@
+---
+alwaysApply: true
+description: Core guidelines for the CS 1.6 Soundboard React project
+---
+
+# CS 1.6 Soundboard - Project Guidelines
+
+## Project Overview
+This is a Counter Strike 1.6 soundboard application built with modern React. The soundboard plays iconic radio commands and sounds from CS 1.6, available in the [radio/](mdc:radio/) directory.
+
+## Technology Stack
+
+### Core Technologies
+- **React 18+** (latest version) with TypeScript
+- **TypeScript 5+** with strict mode enabled
+- **Vite** as build tool (preferred over CRA)
+- **Tailwind CSS** for styling
+- **shadcn/ui** for UI components
+- **Framer Motion** for animations
+
+### Package Management
+- Always use the latest stable versions of libraries
+- Keep dependencies up to date
+- Use npm or pnpm for package management
+
+## TypeScript Standards
+
+### Type Safety
+- **Strong typing is mandatory** - no `any` types unless absolutely necessary
+- Use explicit return types for all functions
+- Prefer `interface` over `type` for object shapes
+- Use strict TypeScript configuration:
+  ```json
+  {
+    "compilerOptions": {
+      "strict": true,
+      "noImplicitAny": true,
+      "strictNullChecks": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true
+    }
+  }
+  ```
+
+### Type Patterns
+- Create dedicated `types.ts` or `interfaces.ts` files for shared types
+- Use generics when creating reusable components
+- Properly type React hooks and event handlers
+- Use `React.FC` or explicit typing for component props
+
+## React Best Practices
+
+### Component Structure
+- **Functional components only** - no class components
+- Use React hooks (useState, useEffect, useMemo, useCallback, etc.)
+- Keep components small and focused (Single Responsibility Principle)
+- Separate logic from presentation when possible
+- Follow this file structure:
+  ```
+  src/
+    components/
+      common/       # Reusable UI components
+      soundboard/   # Soundboard-specific components
+    hooks/          # Custom hooks
+    utils/          # Utility functions
+    types/          # TypeScript types/interfaces
+    constants/      # Constants and configuration
+    assets/         # Images, fonts, etc.
+  ```
+
+### Component Naming
+- Use PascalCase for component names (e.g., `SoundButton.tsx`)
+- Use descriptive names that reflect the component's purpose
+- Keep file names matching component names
+
+### Code Organization
+- One component per file
+- Export components as default when it's the main export
+- Group related components in folders
+- Use barrel exports (`index.ts`) for cleaner imports
+
+### Hooks Guidelines
+- Create custom hooks for reusable logic
+- Prefix custom hooks with `use` (e.g., `useAudioPlayer`, `useSoundboard`)
+- Keep hooks focused and single-purpose
+- Properly handle cleanup in useEffect
+
+## Styling Standards
+
+### Tailwind CSS
+- Use Tailwind utility classes for all styling
+- Avoid inline styles or CSS modules
+- Use Tailwind's responsive prefixes (sm:, md:, lg:, xl:, 2xl:)
+- Leverage Tailwind's design tokens for consistency
+- Use `className` with template literals for conditional classes
+- Consider using `clsx` or `cn` utility for complex class combinations
+
+### shadcn/ui
+- Use shadcn/ui components as the foundation for UI elements
+- Customize shadcn components using Tailwind classes
+- Follow shadcn's component patterns and composition
+- Install components as needed rather than importing entire library
+
+### Responsive Design
+- **Mobile-first approach** - design for mobile, then scale up
+- Test on multiple screen sizes (mobile, tablet, desktop)
+- Use Tailwind's responsive breakpoints consistently
+- Ensure touch targets are appropriately sized (min 44x44px)
+
+## Animation Guidelines
+
+### Framer Motion
+- Use Framer Motion for all animations and transitions
+- Animate on user interactions (hover, click, sound playback)
+- Keep animations smooth and performant (60fps target)
+- Use spring animations for natural feel
+- Consider reduced motion preferences:
+  ```tsx
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  ```
+
+### Animation Patterns
+- Button press animations when playing sounds
+- Smooth transitions between states
+- Loading and success state animations
+- Micro-interactions for better UX
+
+## Audio Handling
+
+### Sound Files
+- All CS 1.6 audio files are located in [radio/](mdc:radio/)
+- Use the Web Audio API or HTML5 Audio for playback
+- Implement proper audio loading and error handling
+- Consider preloading frequently used sounds
+- Allow multiple sounds to play simultaneously (CS 1.6 style)
+
+### Audio Implementation
+- Create a custom hook for audio playback (e.g., `useAudioPlayer`)
+- Handle audio loading states (loading, ready, error)
+- Implement volume control
+- Add visual feedback during sound playback
+
+## Code Quality
+
+### General Standards
+- **All code and comments must be in English**
+- **All conversations with the AI assistant must be in French**
+- Write clean, readable, and maintainable code
+- Use meaningful variable and function names
+- Keep functions small and focused
+- Avoid code duplication - use DRY principle
+- Comment complex logic, but prefer self-documenting code
+
+### Formatting
+- Use Prettier for consistent code formatting
+- Use ESLint for code quality checks
+- Configure VS Code/Cursor to format on save
+- Use 2 spaces for indentation
+- Use semicolons
+- Use single quotes for strings
+
+### Comments
+- Write comments in clear English
+- Explain "why" not "what"
+- Document complex algorithms or business logic
+- Use JSDoc comments for functions when appropriate
+- Keep comments up to date with code changes
+
+## Performance
+
+### Optimization
+- Use React.memo() for expensive components
+- Implement useMemo and useCallback appropriately
+- Lazy load components when beneficial
+- Optimize images and assets
+- Minimize bundle size
+
+### Best Practices
+- Avoid unnecessary re-renders
+- Use production builds for deployment
+- Monitor performance with React DevTools
+- Implement code splitting when appropriate
+
+## UI/UX Design
+
+### Visual Design
+- Create a **beautiful, modern interface**
+- Use a dark theme (CS 1.6 aesthetic)
+- Incorporate CS 1.6 visual elements and nostalgia
+- Maintain consistent spacing and alignment
+- Use clear visual hierarchy
+
+### User Experience
+- Provide immediate visual feedback for interactions
+- Show loading states when necessary
+- Handle errors gracefully with user-friendly messages
+- Make the interface intuitive and easy to use
+- Consider accessibility (keyboard navigation, ARIA labels)
+
+## Accessibility
+
+### WCAG Standards
+- Ensure proper color contrast ratios
+- Add ARIA labels where appropriate
+- Support keyboard navigation
+- Provide text alternatives for audio content
+- Test with screen readers when possible
+
+## Version Control
+
+### Git Practices
+- Write clear, descriptive commit messages
+- Use conventional commits format
+- Keep commits focused and atomic
+- Review changes before committing
+
+## Documentation
+
+### Code Documentation
+- Document complex components and functions
+- Keep README.md up to date
+- Document setup and installation steps
+- Include usage examples for custom hooks
+
+---
+
+**Remember**: This is a showcase project. Prioritize code quality, user experience, and modern best practices. Make it something you'd be proud to show in a portfolio.
