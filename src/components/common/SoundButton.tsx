@@ -1,6 +1,11 @@
 import { Play } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { InteractiveButton, GlowingPulse, PlayIconPulse } from '@/components/animated';
+import {
+  InteractiveButton,
+  GlowingPulse,
+  PlayIconPulse,
+  FrequencyBars,
+} from '@/components/animated';
 
 interface SoundButtonProps {
   label: string;
@@ -41,17 +46,19 @@ function SoundButton({
           {label}
         </span>
 
-        {/* Play icon with pulse animation when playing */}
-        <PlayIconPulse isPlaying={isPlaying}>
-          <Play
-            className={cn(
-              'w-5 h-5 transition-all duration-0',
-              isPlaying
-                ? 'text-primary fill-primary'
-                : 'text-muted-foreground group-hover:text-primary'
-            )}
-          />
-        </PlayIconPulse>
+        {/* Show frequency bars when playing, play icon when not playing */}
+        {isPlaying ? (
+          <FrequencyBars isPlaying={isPlaying} barCount={5} />
+        ) : (
+          <PlayIconPulse isPlaying={isPlaying}>
+            <Play
+              className={cn(
+                'w-5 h-5 transition-all duration-0',
+                'text-muted-foreground group-hover:text-primary'
+              )}
+            />
+          </PlayIconPulse>
+        )}
       </div>
     </InteractiveButton>
   );
