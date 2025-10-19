@@ -1,6 +1,7 @@
+import { motion, AnimatePresence } from 'framer-motion';
 import { Sound } from '@/types';
 import SoundButton from './SoundButton';
-import { FadeIn, PulsingBar, StaggeredGrid, StaggeredItem } from '@/components/animated';
+import { FadeIn, PulsingBar } from '@/components/animated';
 
 interface CategorySectionProps {
   title: string;
@@ -22,17 +23,29 @@ function CategorySection({
         {title}
       </h2>
 
-      <StaggeredGrid className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {sounds.map((sound) => (
-          <StaggeredItem key={sound.id}>
-            <SoundButton
-              label={sound.label}
-              onClick={() => onPlaySound(sound)}
-              isPlaying={currentSound === sound.file}
-            />
-          </StaggeredItem>
-        ))}
-      </StaggeredGrid>
+      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <AnimatePresence mode="popLayout">
+          {sounds.map((sound) => (
+            <motion.div
+              key={sound.id}
+              layout="position"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{
+                layout: { duration: 0.2, ease: 'easeOut' },
+                opacity: { duration: 0.1 },
+              }}
+            >
+              <SoundButton
+                label={sound.label}
+                onClick={() => onPlaySound(sound)}
+                isPlaying={currentSound === sound.file}
+              />
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
     </FadeIn>
   );
 }

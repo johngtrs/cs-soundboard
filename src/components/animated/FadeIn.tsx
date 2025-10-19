@@ -7,11 +7,11 @@ type FadeInProps = {
   duration?: number;
   slideY?: number;
   className?: string;
-} & Omit<HTMLMotionProps<'div'>, 'initial' | 'animate' | 'transition' | 'children'>;
+} & Omit<HTMLMotionProps<'div'>, 'initial' | 'animate' | 'exit' | 'transition' | 'children'>;
 
 /**
- * Animated component that fades in with optional slide-up effect
- * Versatile component for general purpose fade-in animations
+ * Animated component that fades in and out with optional slide effect
+ * Versatile component for general purpose fade animations
  */
 function FadeIn({
   children,
@@ -25,6 +25,7 @@ function FadeIn({
   const animationProps = {
     initial: { opacity: 0, y: slideY },
     animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -slideY },
     transition: { delay, duration, ease: 'easeOut' as const },
     className,
     ...props,

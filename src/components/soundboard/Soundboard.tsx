@@ -1,13 +1,17 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import Header from '@/components/common/Header';
 import CategorySection from '@/components/common/CategorySection';
+import SearchBar from '@/components/common/SearchBar';
 import { useAudioPlayer } from '@/hooks/useAudioPlayer';
 import { SOUNDS, CATEGORY_LABELS } from '@/constants/sounds';
 import { Sound, SoundCategory } from '@/types';
 import { FadeIn, FloatingOrb } from '@/components/animated';
+import { matchesSearch } from '@/utils/string';
 
 function Soundboard(): JSX.Element {
   const { play, currentSound } = useAudioPlayer();
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   const categorizedSounds = useMemo(() => {
     const categories: Record<SoundCategory, Sound[]> = {
@@ -18,16 +22,25 @@ function Soundboard(): JSX.Element {
       events: [],
     };
 
-    SOUNDS.forEach((sound) => {
+    // Filter sounds based on search query (accent-insensitive)
+    const filteredSounds = searchQuery
+      ? SOUNDS.filter((sound) => matchesSearch(sound.label, searchQuery))
+      : SOUNDS;
+
+    filteredSounds.forEach((sound) => {
       categories[sound.category].push(sound);
     });
 
     return categories;
-  }, []);
+  }, [searchQuery]);
 
   const handlePlaySound = (sound: Sound): void => {
     play(sound.file);
   };
+
+  const hasResults = useMemo(() => {
+    return Object.values(categorizedSounds).some((sounds) => sounds.length > 0);
+  }, [categorizedSounds]);
 
   return (
     <div className="min-h-screen pb-12">
@@ -44,21 +57,42 @@ function Soundboard(): JSX.Element {
           />
         </div>
 
-        {/* Sound categories */}
-        <div className="space-y-12">
-          {Object.entries(categorizedSounds).map(
-            ([category, sounds]) =>
-              sounds.length > 0 && (
-                <CategorySection
-                  key={category}
-                  title={CATEGORY_LABELS[category]}
-                  sounds={sounds}
-                  onPlaySound={handlePlaySound}
-                  currentSound={currentSound}
-                />
-              )
+        {/* Search bar */}
+        <SearchBar value={searchQuery} onChange={setSearchQuery} />
+
+        {/* Sound categories with smooth animations */}
+        <AnimatePresence mode="wait">
+          {hasResults ? (
+            <div key="results" className="space-y-12">
+              {Object.entries(categorizedSounds).map(
+                ([category, sounds]) =>
+                  sounds.length > 0 && (
+                    <CategorySection
+                      key={category}
+                      title={CATEGORY_LABELS[category]}
+                      sounds={sounds}
+                      onPlaySound={handlePlaySound}
+                      currentSound={currentSound}
+                    />
+                  )
+              )}
+            </div>
+          ) : (
+            <FadeIn
+              key="no-results"
+              delay={0}
+              duration={0.15}
+              slideY={10}
+              className="text-center py-16"
+            >
+              <div className="space-y-4">
+                <p className="text-2xl text-muted-foreground">🔍</p>
+                <p className="text-xl text-foreground font-semibold">Aucun son trouvé</p>
+                <p className="text-muted-foreground">Essayez avec d'autres mots-clés</p>
+              </div>
+            </FadeIn>
           )}
-        </div>
+        </AnimatePresence>
 
         {/* Footer */}
         <FadeIn
