@@ -11,6 +11,7 @@ function Soundboard(): JSX.Element {
 
   const categorizedSounds = useMemo(() => {
     const categories: Record<SoundCategory, Sound[]> = {
+      top: [],
       radio: [],
       commands: [],
       responses: [],

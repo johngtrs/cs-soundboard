@@ -1,6 +1,36 @@
 import { Sound } from '@/types';
 
 export const SOUNDS: Sound[] = [
+  // 🔥 Top Sons
+  {
+    id: 'fire-in-hole',
+    name: 'Fire In Hole',
+    file: '/audio/ct_fireinhole.wav',
+    category: 'top',
+    label: '💣 CA VA PÉTER !',
+  },
+  {
+    id: 'ct-win',
+    name: 'CT Win',
+    file: '/audio/ctwin.wav',
+    category: 'top',
+    label: '🏆 Victoire Anti-Terroristes',
+  },
+  {
+    id: 'ter-win',
+    name: 'T Win',
+    file: '/audio/terwin.wav',
+    category: 'top',
+    label: '💀 Victoire Terroristes',
+  },
+  {
+    id: 'blow',
+    name: 'Blow',
+    file: '/audio/blow.wav',
+    category: 'top',
+    label: "🚨 Sortez d'ici ca va sauter !",
+  },
+
   // Commandes Radio
   {
     id: 'cover-me',
@@ -212,13 +242,6 @@ export const SOUNDS: Sound[] = [
     label: '☠️ Ennemi à terre',
   },
   {
-    id: 'fire-in-hole',
-    name: 'Fire In Hole',
-    file: '/audio/ct_fireinhole.wav',
-    category: 'events',
-    label: '💣 CA VA PÉTER !',
-  },
-  {
     id: 'bomb-planted',
     name: 'Bomb Planted',
     file: '/audio/bombpl.wav',
@@ -233,32 +256,11 @@ export const SOUNDS: Sound[] = [
     label: '✂️ La bombe a été désamorcée',
   },
   {
-    id: 'ct-win',
-    name: 'CT Win',
-    file: '/audio/ctwin.wav',
-    category: 'events',
-    label: '🏆 Victoire Anti-Terroristes',
-  },
-  {
-    id: 'ter-win',
-    name: 'T Win',
-    file: '/audio/terwin.wav',
-    category: 'events',
-    label: '💀 Victoire Terroristes',
-  },
-  {
     id: 'round-draw',
     name: 'Round Draw',
     file: '/audio/rounddraw.wav',
     category: 'events',
     label: '🤝 Match nul',
-  },
-  {
-    id: 'blow',
-    name: 'Blow',
-    file: '/audio/blow.wav',
-    category: 'events',
-    label: "🚨 Sortez d'ici ca va sauter !",
   },
   {
     id: 'eliminated',
@@ -319,8 +321,9 @@ export const SOUNDS: Sound[] = [
 ];
 
 export const CATEGORY_LABELS: Record<string, string> = {
-  radio: 'Commandes Radio',
-  commands: 'Ordres Tactiques',
-  responses: 'Réponses',
-  events: 'Événements',
+  top: '🔥 Les Plus Mythiques',
+  radio: '📻 Commandes Radio',
+  commands: '⚔️ Ordres Tactiques',
+  responses: '💬 Réponses',
+  events: '🎯 Événements',
 };

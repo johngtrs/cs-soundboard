@@ -6,10 +6,9 @@ export interface Sound {
   label: string;
 }
 
-export type SoundCategory = 'radio' | 'commands' | 'responses' | 'events';
+export type SoundCategory = 'top' | 'radio' | 'commands' | 'responses' | 'events';
 
 export interface AudioState {
   isPlaying: boolean;
   currentSound: string | null;
 }
-
