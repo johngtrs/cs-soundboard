@@ -25,7 +25,7 @@ function SoundButton({
         'bg-gradient-to-br from-slate-800 to-slate-900',
         'border-2 border-slate-700',
         'text-left font-cs text-sm tracking-wide',
-        'transition-all duration-150',
+        'transition-all duration-100',
         'hover:border-primary hover:shadow-lg hover:shadow-primary/20',
         'disabled:opacity-50 disabled:cursor-not-allowed',
         isPlaying &&
@@ -36,7 +36,7 @@ function SoundButton({
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        duration: 0.2,
+        duration: 0.15,
         ease: 'easeOut',
       }}
     >
@@ -56,7 +56,7 @@ function SoundButton({
       )}
 
       <div className="relative flex items-center justify-between gap-3">
-        <span className="text-foreground group-hover:text-primary transition-colors duration-150 flex-1">
+        <span className="text-foreground group-hover:text-primary transition-colors duration-75 flex-1">
           {label}
         </span>
 
@@ -77,7 +77,7 @@ function SoundButton({
         >
           <Play
             className={cn(
-              'w-5 h-5 transition-all duration-150',
+              'w-5 h-5 transition-all duration-75',
               isPlaying
                 ? 'text-primary fill-primary'
                 : 'text-muted-foreground group-hover:text-primary'

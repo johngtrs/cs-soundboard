@@ -9,7 +9,7 @@ A beautiful and modern Counter-Strike 1.6 soundboard built with React, TypeScrip
 
 ## ✨ Features
 
-- 🎯 **Classic CS 1.6 Sounds** - All the iconic radio commands and event sounds
+- 🎯 **Classic CS 1.6 Sounds** - All 45+ iconic radio commands and event sounds
 - 🎨 **Modern UI** - Beautiful dark theme with CS 1.6 aesthetic
 - ⚡ **Smooth Animations** - Powered by Framer Motion for fluid interactions
 - 📱 **Responsive Design** - Works perfectly on mobile, tablet, and desktop
@@ -116,8 +116,8 @@ cs-soundboard/
 
 ### Animations
 
-- Fast, professional entrance animations (0.2-0.3s)
-- Snappy button hover and press effects (150ms)
+- Fast, professional entrance animations (0.15-0.3s)
+- Ultra-snappy button hover effects (75-100ms)
 - Smooth pulse animation on playing sounds (no rotation)
 - Subtle background ambient animations
 - Optimized staggered list animations (0.03s delay)

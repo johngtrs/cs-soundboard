@@ -28,7 +28,7 @@ function Header(): JSX.Element {
               CS 1.6 SOUNDBOARD
             </h1>
             <p className="text-muted-foreground text-sm mt-2 tracking-widest uppercase">
-              Classic Counter-Strike Radio Commands
+              CA VA PÉTER 💥
             </p>
           </div>
         </div>

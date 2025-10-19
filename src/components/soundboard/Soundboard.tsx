@@ -90,7 +90,6 @@ function Soundboard(): JSX.Element {
           className="mt-16 text-center text-muted-foreground text-sm"
         >
           <p className="tracking-wider">Counter-Strike 1.6 © Valve Corporation</p>
-          <p className="mt-2 text-xs">Built with React, TypeScript, Tailwind CSS & Framer Motion</p>
         </motion.footer>
       </motion.main>
     </div>
