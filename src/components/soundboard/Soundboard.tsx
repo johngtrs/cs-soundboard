@@ -31,11 +31,11 @@ function Soundboard(): JSX.Element {
   return (
     <div className="min-h-screen pb-12">
       <Header />
-      
+
       <motion.main
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
+        transition={{ delay: 0.15, duration: 0.3 }}
         className="max-w-7xl mx-auto px-6"
       >
         {/* Background decorative elements */}
@@ -68,32 +68,29 @@ function Soundboard(): JSX.Element {
 
         {/* Sound categories */}
         <div className="space-y-12">
-          {Object.entries(categorizedSounds).map(([category, sounds]) => (
-            sounds.length > 0 && (
-              <CategorySection
-                key={category}
-                title={CATEGORY_LABELS[category]}
-                sounds={sounds}
-                onPlaySound={handlePlaySound}
-                currentSound={currentSound}
-              />
-            )
-          ))}
+          {Object.entries(categorizedSounds).map(
+            ([category, sounds]) =>
+              sounds.length > 0 && (
+                <CategorySection
+                  key={category}
+                  title={CATEGORY_LABELS[category]}
+                  sounds={sounds}
+                  onPlaySound={handlePlaySound}
+                  currentSound={currentSound}
+                />
+              )
+          )}
         </div>
 
         {/* Footer */}
         <motion.footer
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.5 }}
+          transition={{ delay: 0.5, duration: 0.4 }}
           className="mt-16 text-center text-muted-foreground text-sm"
         >
-          <p className="tracking-wider">
-            Counter-Strike 1.6 © Valve Corporation
-          </p>
-          <p className="mt-2 text-xs">
-            Built with React, TypeScript, Tailwind CSS & Framer Motion
-          </p>
+          <p className="tracking-wider">Counter-Strike 1.6 © Valve Corporation</p>
+          <p className="mt-2 text-xs">Built with React, TypeScript, Tailwind CSS & Framer Motion</p>
         </motion.footer>
       </motion.main>
     </div>
@@ -101,4 +98,3 @@ function Soundboard(): JSX.Element {
 }
 
 export default Soundboard;
-

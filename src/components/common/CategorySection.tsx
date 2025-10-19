@@ -14,43 +14,51 @@ const container = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.05,
+      staggerChildren: 0.03,
     },
   },
 };
 
 const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 10 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.2,
+      ease: 'easeOut',
+    },
+  },
 };
 
-function CategorySection({ title, sounds, onPlaySound, currentSound }: CategorySectionProps): JSX.Element {
+function CategorySection({
+  title,
+  sounds,
+  onPlaySound,
+  currentSound,
+}: CategorySectionProps): JSX.Element {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
       className="mb-8"
     >
-      <motion.h2
-        className="text-2xl font-bold text-primary mb-4 tracking-wider uppercase flex items-center gap-3"
-        whileHover={{ x: 10 }}
-        transition={{ type: 'spring', stiffness: 300 }}
-      >
+      <h2 className="text-2xl font-bold text-primary mb-4 tracking-wider uppercase flex items-center gap-3">
         <motion.span
           className="w-2 h-8 bg-primary rounded-full"
           animate={{
-            scaleY: [1, 1.2, 1],
+            scaleY: [1, 1.15, 1],
           }}
           transition={{
-            duration: 1.5,
+            duration: 0.8,
             repeat: Infinity,
             ease: 'easeInOut',
           }}
         />
         {title}
-      </motion.h2>
-      
+      </h2>
+
       <motion.div
         variants={container}
         initial="hidden"
@@ -72,4 +80,3 @@ function CategorySection({ title, sounds, onPlaySound, currentSound }: CategoryS
 }
 
 export default CategorySection;
-

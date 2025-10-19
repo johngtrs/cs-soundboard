@@ -4,25 +4,21 @@ import { Volume2 } from 'lucide-react';
 function Header(): JSX.Element {
   return (
     <motion.header
-      initial={{ y: -100, opacity: 0 }}
+      initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
       className="w-full py-8 px-6 bg-gradient-to-b from-slate-950/80 to-transparent backdrop-blur-sm"
     >
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          className="flex items-center justify-center gap-4"
-          whileHover={{ scale: 1.02 }}
-          transition={{ type: 'spring', stiffness: 300 }}
-        >
+        <div className="flex items-center justify-center gap-4">
           <motion.div
             animate={{
-              rotate: [0, -10, 10, -10, 0],
+              scale: [1, 1.05, 1],
             }}
             transition={{
               duration: 2,
               repeat: Infinity,
-              repeatDelay: 3,
+              ease: 'easeInOut',
             }}
           >
             <Volume2 className="w-12 h-12 text-primary" strokeWidth={2.5} />
@@ -35,11 +31,10 @@ function Header(): JSX.Element {
               Classic Counter-Strike Radio Commands
             </p>
           </div>
-        </motion.div>
+        </div>
       </div>
     </motion.header>
   );
 }
 
 export default Header;
-

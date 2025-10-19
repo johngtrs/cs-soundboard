@@ -116,11 +116,11 @@ cs-soundboard/
 
 ### Animations
 
-- Entrance animations for all components
-- Button press animations
-- Playing indicators with rotation and pulsing
-- Background ambient animations
-- Staggered list animations
+- Fast, professional entrance animations (0.2-0.3s)
+- Snappy button hover and press effects (150ms)
+- Smooth pulse animation on playing sounds (no rotation)
+- Subtle background ambient animations
+- Optimized staggered list animations (0.03s delay)
 
 ## 🎨 Color Scheme
 
