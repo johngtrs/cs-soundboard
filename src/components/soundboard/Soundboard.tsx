@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Header from '@/components/common/Header';
 import CategorySection from '@/components/common/CategorySection';
 import SearchBar from '@/components/common/SearchBar';
@@ -60,39 +60,36 @@ function Soundboard(): JSX.Element {
         {/* Search bar */}
         <SearchBar value={searchQuery} onChange={setSearchQuery} />
 
-        {/* Sound categories with smooth animations */}
-        <AnimatePresence mode="wait">
-          {hasResults ? (
-            <div key="results" className="space-y-12">
-              {Object.entries(categorizedSounds).map(
-                ([category, sounds]) =>
-                  sounds.length > 0 && (
-                    <CategorySection
-                      key={category}
-                      title={CATEGORY_LABELS[category]}
-                      sounds={sounds}
-                      onPlaySound={handlePlaySound}
-                      currentSound={currentSound}
-                    />
-                  )
-              )}
+        {/* Sound categories */}
+        {hasResults ? (
+          <div className="space-y-12">
+            {Object.entries(categorizedSounds).map(
+              ([category, sounds]) =>
+                sounds.length > 0 && (
+                  <CategorySection
+                    key={category}
+                    title={CATEGORY_LABELS[category]}
+                    sounds={sounds}
+                    onPlaySound={handlePlaySound}
+                    currentSound={currentSound}
+                  />
+                )
+            )}
+          </div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.2 }}
+            className="text-center py-16"
+          >
+            <div className="space-y-4">
+              <p className="text-2xl text-muted-foreground">🔍</p>
+              <p className="text-xl text-foreground font-semibold">Aucun son trouvé</p>
+              <p className="text-muted-foreground">Essayez avec d'autres mots-clés</p>
             </div>
-          ) : (
-            <FadeIn
-              key="no-results"
-              delay={0}
-              duration={0.15}
-              slideY={10}
-              className="text-center py-16"
-            >
-              <div className="space-y-4">
-                <p className="text-2xl text-muted-foreground">🔍</p>
-                <p className="text-xl text-foreground font-semibold">Aucun son trouvé</p>
-                <p className="text-muted-foreground">Essayez avec d'autres mots-clés</p>
-              </div>
-            </FadeIn>
-          )}
-        </AnimatePresence>
+          </motion.div>
+        )}
 
         {/* Footer */}
         <FadeIn
