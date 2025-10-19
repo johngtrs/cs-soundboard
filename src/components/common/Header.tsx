@@ -25,7 +25,7 @@ function Header(): JSX.Element {
               <Volume2 className="w-12 h-12 text-primary" strokeWidth={2.5} />
             </motion.div>
             <h1 className="text-5xl font-bold bg-gradient-to-r from-primary via-orange-400 to-primary bg-clip-text text-transparent tracking-wider">
-              CS 1.6 SOUNDBOARD
+              CS 1.6 SOUNDBOARD !
             </h1>
           </div>
           <p className="text-muted-foreground text-sm mt-2 tracking-widest uppercase">
