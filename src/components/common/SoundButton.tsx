@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
 import { Play } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { InteractiveButton, GlowingPulse, PlayIconPulse } from '@/components/animated';
 
 interface SoundButtonProps {
   label: string;
@@ -16,7 +16,7 @@ function SoundButton({
   disabled = false,
 }: SoundButtonProps): JSX.Element {
   return (
-    <motion.button
+    <InteractiveButton
       onClick={onClick}
       disabled={disabled}
       className={cn(
@@ -32,29 +32,9 @@ function SoundButton({
         isPlaying &&
           'border-primary shadow-lg shadow-primary/30 bg-gradient-to-br from-slate-700 to-slate-800'
       )}
-      whileHover={{ scale: 1.02, transition: { duration: 0 } }}
-      whileTap={{ scale: 0.96 }}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: 0.15,
-        ease: 'easeOut',
-      }}
     >
       {/* Glowing pulse effect when playing */}
-      {isPlaying && (
-        <motion.div
-          className="absolute inset-0 rounded-lg bg-primary/10 blur-lg"
-          animate={{
-            opacity: [0.3, 0.6, 0.3],
-          }}
-          transition={{
-            duration: 0.8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-      )}
+      {isPlaying && <GlowingPulse className="absolute inset-0 rounded-lg bg-primary/10 blur-lg" />}
 
       <div className="relative flex items-center justify-between gap-3 w-full">
         <span className="text-foreground group-hover:text-primary transition-colors duration-0 flex-1 leading-tight">
@@ -62,20 +42,7 @@ function SoundButton({
         </span>
 
         {/* Play icon with pulse animation when playing */}
-        <motion.div
-          animate={
-            isPlaying
-              ? {
-                  scale: [1, 1.15, 1],
-                }
-              : {}
-          }
-          transition={{
-            duration: 0.6,
-            repeat: isPlaying ? Infinity : 0,
-            ease: 'easeInOut',
-          }}
-        >
+        <PlayIconPulse isPlaying={isPlaying}>
           <Play
             className={cn(
               'w-5 h-5 transition-all duration-0',
@@ -84,9 +51,9 @@ function SoundButton({
                 : 'text-muted-foreground group-hover:text-primary'
             )}
           />
-        </motion.div>
+        </PlayIconPulse>
       </div>
-    </motion.button>
+    </InteractiveButton>
   );
 }
 

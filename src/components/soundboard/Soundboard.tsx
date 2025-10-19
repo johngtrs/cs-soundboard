@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
-import { motion } from 'framer-motion';
 import Header from '@/components/common/Header';
 import CategorySection from '@/components/common/CategorySection';
 import { useAudioPlayer } from '@/hooks/useAudioPlayer';
 import { SOUNDS, CATEGORY_LABELS } from '@/constants/sounds';
 import { Sound, SoundCategory } from '@/types';
+import { FadeIn, FloatingOrb } from '@/components/animated';
 
 function Soundboard(): JSX.Element {
   const { play, currentSound } = useAudioPlayer();
@@ -33,37 +33,14 @@ function Soundboard(): JSX.Element {
     <div className="min-h-screen pb-12">
       <Header />
 
-      <motion.main
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.15, duration: 0.3 }}
-        className="max-w-7xl mx-auto px-6"
-      >
+      <FadeIn as="main" delay={0.15} slideY={0} className="max-w-7xl mx-auto px-6">
         {/* Background decorative elements */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-          <motion.div
-            className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.3, 0.5, 0.3],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-          <motion.div
+          <FloatingOrb className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+          <FloatingOrb
+            duration={10}
+            scaleRange={[1.2, 1, 1.2]}
             className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"
-            animate={{
-              scale: [1.2, 1, 1.2],
-              opacity: [0.3, 0.5, 0.3],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
           />
         </div>
 
@@ -84,15 +61,16 @@ function Soundboard(): JSX.Element {
         </div>
 
         {/* Footer */}
-        <motion.footer
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.4 }}
+        <FadeIn
+          as="footer"
+          delay={0.5}
+          duration={0.4}
+          slideY={0}
           className="mt-16 text-center text-muted-foreground text-sm"
         >
           <p className="tracking-wider">Counter-Strike 1.6 © Valve Corporation</p>
-        </motion.footer>
-      </motion.main>
+        </FadeIn>
+      </FadeIn>
     </div>
   );
 }
