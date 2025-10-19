@@ -29,7 +29,7 @@ function Header(): JSX.Element {
             </h1>
           </div>
           <p className="text-muted-foreground text-sm mt-2 tracking-widest uppercase">
-            CA VA PÉTER 💥
+            ÇA VA PÉTER 💥
           </p>
         </div>
       </div>

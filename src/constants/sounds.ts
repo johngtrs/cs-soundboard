@@ -7,7 +7,7 @@ export const SOUNDS: Sound[] = [
     name: 'Fire In Hole',
     file: '/audio/ct_fireinhole.wav',
     category: 'top',
-    label: '💣 CA VA PÉTER !',
+    label: '💣 ÇA VA PÉTER !',
   },
   {
     id: 'ct-win',
@@ -28,7 +28,7 @@ export const SOUNDS: Sound[] = [
     name: 'Blow',
     file: '/audio/blow.wav',
     category: 'top',
-    label: "🚨 Sortez d'ici ca va sauter !",
+    label: "🚨 Sortez d'ici ça va sauter !",
   },
 
   // Commandes Radio
