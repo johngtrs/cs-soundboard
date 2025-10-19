@@ -25,13 +25,13 @@ function SoundButton({
         'bg-gradient-to-br from-slate-800 to-slate-900',
         'border-2 border-slate-700',
         'text-left font-cs text-sm tracking-wide',
-        'transition-all duration-100',
+        'transition-all duration-0',
         'hover:border-primary hover:shadow-lg hover:shadow-primary/20',
         'disabled:opacity-50 disabled:cursor-not-allowed',
         isPlaying &&
           'border-primary shadow-lg shadow-primary/30 bg-gradient-to-br from-slate-700 to-slate-800'
       )}
-      whileHover={{ scale: 1.02 }}
+      whileHover={{ scale: 1.02, transition: { duration: 0 } }}
       whileTap={{ scale: 0.96 }}
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
@@ -56,7 +56,7 @@ function SoundButton({
       )}
 
       <div className="relative flex items-center justify-between gap-3">
-        <span className="text-foreground group-hover:text-primary transition-colors duration-75 flex-1">
+        <span className="text-foreground group-hover:text-primary transition-colors duration-0 flex-1">
           {label}
         </span>
 
@@ -77,7 +77,7 @@ function SoundButton({
         >
           <Play
             className={cn(
-              'w-5 h-5 transition-all duration-75',
+              'w-5 h-5 transition-all duration-0',
               isPlaying
                 ? 'text-primary fill-primary'
                 : 'text-muted-foreground group-hover:text-primary'
