@@ -117,13 +117,6 @@ export const SOUNDS: Sound[] = [
     label: '🔝 Vous prenez le point',
   },
   {
-    id: 'hold-position-cmd',
-    name: 'Hold Position',
-    file: '/audio/position.wav',
-    category: 'commands',
-    label: '🚫 Tenez la position !',
-  },
-  {
     id: 'move-out',
     name: 'Move Out',
     file: '/audio/moveout.wav',
