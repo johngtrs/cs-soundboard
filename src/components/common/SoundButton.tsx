@@ -21,13 +21,14 @@ function SoundButton({
       disabled={disabled}
       className={cn(
         'relative group w-full',
-        'px-6 py-4 rounded-lg',
+        'min-h-[72px] px-6 py-4 rounded-lg',
         'bg-gradient-to-br from-slate-800 to-slate-900',
         'border-2 border-slate-700',
         'text-left font-cs text-sm tracking-wide',
         'transition-all duration-0',
         'hover:border-primary hover:shadow-lg hover:shadow-primary/20',
         'disabled:opacity-50 disabled:cursor-not-allowed',
+        'flex items-center',
         isPlaying &&
           'border-primary shadow-lg shadow-primary/30 bg-gradient-to-br from-slate-700 to-slate-800'
       )}
@@ -55,8 +56,8 @@ function SoundButton({
         />
       )}
 
-      <div className="relative flex items-center justify-between gap-3">
-        <span className="text-foreground group-hover:text-primary transition-colors duration-0 flex-1">
+      <div className="relative flex items-center justify-between gap-3 w-full">
+        <span className="text-foreground group-hover:text-primary transition-colors duration-0 flex-1 leading-tight">
           {label}
         </span>
 
