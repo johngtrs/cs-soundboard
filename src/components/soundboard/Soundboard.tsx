@@ -96,9 +96,13 @@ function Soundboard(): JSX.Element {
             className="text-center py-16"
           >
             <div className="space-y-4">
-              <p className="text-2xl text-muted-foreground">🔍</p>
-              <p className="text-xl text-foreground font-semibold">{t.search.noResults}</p>
-              <p className="text-muted-foreground">{t.search.tryOtherKeywords}</p>
+              <p className="text-3xl sm:text-4xl text-muted-foreground">🔍</p>
+              <p className="text-lg sm:text-xl text-foreground font-semibold">
+                {t.search.noResults}
+              </p>
+              <p className="text-base sm:text-lg text-muted-foreground">
+                {t.search.tryOtherKeywords}
+              </p>
             </div>
           </motion.div>
         )}
@@ -109,7 +113,7 @@ function Soundboard(): JSX.Element {
           delay={0.5}
           duration={0.4}
           slideY={0}
-          className="mt-16 text-center text-muted-foreground text-sm"
+          className="mt-16 text-center text-muted-foreground text-base sm:text-sm"
         >
           <p className="tracking-wider">{t.footer.copyright}</p>
         </FadeIn>

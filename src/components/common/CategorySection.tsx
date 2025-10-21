@@ -20,7 +20,7 @@ function CategorySection({
 }: CategorySectionProps): JSX.Element {
   return (
     <FadeIn className="mb-8">
-      <h2 className="text-lg sm:text-2xl font-bold text-primary mb-4 tracking-wider uppercase flex items-center gap-2 sm:gap-3">
+      <h2 className="text-xl sm:text-2xl font-bold text-primary mb-4 tracking-wider uppercase flex items-center gap-2 sm:gap-3">
         <PulsingBar className="w-1.5 sm:w-2 h-6 sm:h-8 bg-primary rounded-full flex-shrink-0" />
         <span className="truncate">{title}</span>
       </h2>

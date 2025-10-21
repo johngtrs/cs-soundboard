@@ -23,7 +23,7 @@ function SoundButton({
         'relative group w-full',
         'min-h-[72px] px-3 py-3 sm:px-6 sm:py-4 rounded-lg',
         'border-2',
-        'text-left font-cs text-xs sm:text-sm tracking-wide',
+        'text-left font-cs text-sm sm:text-base tracking-wide',
         'transition-all duration-0',
         'disabled:opacity-50 disabled:cursor-not-allowed',
         'flex items-center',

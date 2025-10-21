@@ -41,7 +41,7 @@ function LanguageSelector({
           transition={{ duration: 0.2 }}
         >
           <span className="text-lg sm:text-xl">{lang.flag}</span>
-          <span className="text-xs sm:text-sm font-semibold hidden min-[400px]:inline">
+          <span className="text-sm sm:text-base font-semibold hidden min-[400px]:inline">
             {lang.label}
           </span>
         </motion.button>

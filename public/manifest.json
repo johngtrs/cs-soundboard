@@ -1,0 +1,23 @@
+{
+  "name": "CS 1.6 Soundboard",
+  "short_name": "CS Soundboard",
+  "description": "Counter-Strike 1.6 Soundboard - Play iconic CS 1.6 radio commands and sounds",
+  "theme_color": "#ff9800",
+  "background_color": "#1a1a1a",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

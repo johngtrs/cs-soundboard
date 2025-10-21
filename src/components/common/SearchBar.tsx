@@ -22,7 +22,7 @@ function SearchBar({ value, onChange, placeholder }: SearchBarProps): JSX.Elemen
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
-            className="w-full pl-10 sm:pl-12 pr-10 sm:pr-12 py-3 sm:py-4 text-sm sm:text-base rounded-lg bg-slate-800/50 border-2 border-slate-700 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors duration-200 backdrop-blur-sm"
+            className="w-full pl-10 sm:pl-12 pr-10 sm:pr-12 py-3 sm:py-4 text-base sm:text-lg rounded-lg bg-slate-800/50 border-2 border-slate-700 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors duration-200 backdrop-blur-sm"
           />
           {value && (
             <button

@@ -25,11 +25,11 @@ function Header({ currentLanguage, onLanguageChange, t }: HeaderProps): JSX.Elem
                 strokeWidth={2.5}
               />
             </PulsingIcon>
-            <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-orange-400 to-primary bg-clip-text text-transparent tracking-wider text-center">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-orange-400 to-primary bg-clip-text text-transparent tracking-wider text-center">
               {t.header.title}
             </h1>
           </div>
-          <p className="text-muted-foreground text-xs sm:text-sm tracking-widest uppercase text-center px-4">
+          <p className="text-muted-foreground text-sm sm:text-base tracking-widest uppercase text-center px-4">
             {t.header.subtitle}
           </p>
           <LanguageSelector
