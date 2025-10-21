@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sound } from '@/types';
+import { Sound, Language } from '@/types';
 import SoundButton from './SoundButton';
 import { FadeIn, PulsingBar } from '@/components/animated';
 
@@ -8,6 +8,7 @@ interface CategorySectionProps {
   sounds: Sound[];
   onPlaySound: (sound: Sound) => void;
   currentSound: string | null;
+  language: Language;
 }
 
 function CategorySection({
@@ -15,6 +16,7 @@ function CategorySection({
   sounds,
   onPlaySound,
   currentSound,
+  language,
 }: CategorySectionProps): JSX.Element {
   return (
     <FadeIn className="mb-8">
@@ -38,7 +40,7 @@ function CategorySection({
               }}
             >
               <SoundButton
-                label={sound.label}
+                label={sound.labels[language]}
                 onClick={() => onPlaySound(sound)}
                 isPlaying={currentSound?.endsWith(sound.file) ?? false}
               />

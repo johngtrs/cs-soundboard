@@ -5,14 +5,14 @@ import CategorySection from '@/components/common/CategorySection';
 import SearchBar from '@/components/common/SearchBar';
 import { useAudioPlayer } from '@/hooks/useAudioPlayer';
 import { useLanguage } from '@/hooks/useLanguage';
-import { SOUNDS, CATEGORY_LABELS } from '@/constants/sounds';
+import { SOUNDS } from '@/constants/sounds';
 import { Sound, SoundCategory } from '@/types';
 import { FadeIn, FloatingOrb } from '@/components/animated';
 import { matchesSearch } from '@/utils/string';
 
 function Soundboard(): JSX.Element {
   const { play, currentSound } = useAudioPlayer();
-  const { language, setLanguage, getAudioPath } = useLanguage();
+  const { language, setLanguage, getAudioPath, t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const categorizedSounds = useMemo(() => {
@@ -24,9 +24,13 @@ function Soundboard(): JSX.Element {
       events: [],
     };
 
-    // Filter sounds based on search query (accent-insensitive)
+    // Filter sounds based on search query (accent-insensitive, search in both languages)
     const filteredSounds = searchQuery
-      ? SOUNDS.filter((sound) => matchesSearch(sound.label, searchQuery))
+      ? SOUNDS.filter(
+          (sound) =>
+            matchesSearch(sound.labels.fr, searchQuery) ||
+            matchesSearch(sound.labels.en, searchQuery)
+        )
       : SOUNDS;
 
     filteredSounds.forEach((sound) => {
@@ -47,7 +51,7 @@ function Soundboard(): JSX.Element {
 
   return (
     <div className="min-h-screen pb-12">
-      <Header currentLanguage={language} onLanguageChange={setLanguage} />
+      <Header currentLanguage={language} onLanguageChange={setLanguage} t={t} />
 
       <FadeIn as="main" delay={0.15} slideY={0} className="max-w-7xl mx-auto px-6">
         {/* Background decorative elements */}
@@ -61,7 +65,11 @@ function Soundboard(): JSX.Element {
         </div>
 
         {/* Search bar */}
-        <SearchBar value={searchQuery} onChange={setSearchQuery} />
+        <SearchBar
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder={t.search.placeholder}
+        />
 
         {/* Sound categories */}
         {hasResults ? (
@@ -71,10 +79,11 @@ function Soundboard(): JSX.Element {
                 sounds.length > 0 && (
                   <CategorySection
                     key={category}
-                    title={CATEGORY_LABELS[category]}
+                    title={t.categories[category as SoundCategory]}
                     sounds={sounds}
                     onPlaySound={handlePlaySound}
                     currentSound={currentSound}
+                    language={language}
                   />
                 )
             )}
@@ -88,8 +97,8 @@ function Soundboard(): JSX.Element {
           >
             <div className="space-y-4">
               <p className="text-2xl text-muted-foreground">🔍</p>
-              <p className="text-xl text-foreground font-semibold">Aucun son trouvé</p>
-              <p className="text-muted-foreground">Essayez avec d'autres mots-clés</p>
+              <p className="text-xl text-foreground font-semibold">{t.search.noResults}</p>
+              <p className="text-muted-foreground">{t.search.tryOtherKeywords}</p>
             </div>
           </motion.div>
         )}
@@ -102,7 +111,7 @@ function Soundboard(): JSX.Element {
           slideY={0}
           className="mt-16 text-center text-muted-foreground text-sm"
         >
-          <p className="tracking-wider">Counter-Strike 1.6 © Valve Corporation</p>
+          <p className="tracking-wider">{t.footer.copyright}</p>
         </FadeIn>
       </FadeIn>
     </div>

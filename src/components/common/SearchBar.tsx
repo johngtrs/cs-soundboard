@@ -4,14 +4,10 @@ import { FadeIn } from '@/components/animated';
 interface SearchBarProps {
   value: string;
   onChange: (value: string) => void;
-  placeholder?: string;
+  placeholder: string;
 }
 
-function SearchBar({
-  value,
-  onChange,
-  placeholder = 'Rechercher un son...',
-}: SearchBarProps): JSX.Element {
+function SearchBar({ value, onChange, placeholder }: SearchBarProps): JSX.Element {
   const handleClear = (): void => {
     onChange('');
   };

@@ -3,7 +3,10 @@ export interface Sound {
   name: string;
   file: string;
   category: SoundCategory;
-  label: string;
+  labels: {
+    fr: string;
+    en: string;
+  };
 }
 
 export type SoundCategory = 'top' | 'radio' | 'commands' | 'responses' | 'events';

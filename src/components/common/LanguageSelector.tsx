@@ -1,26 +1,29 @@
 import { motion } from 'framer-motion';
 import { Language, LanguageOption } from '@/types';
 import { cn } from '@/lib/utils';
+import { TranslationKeys } from '@/locales';
 
 interface LanguageSelectorProps {
   currentLanguage: Language;
   onLanguageChange: (lang: Language) => void;
+  t: TranslationKeys;
   className?: string;
 }
-
-const LANGUAGES: LanguageOption[] = [
-  { code: 'fr', label: 'Français', flag: '🇫🇷' },
-  { code: 'en', label: 'English', flag: '🇬🇧' },
-];
 
 function LanguageSelector({
   currentLanguage,
   onLanguageChange,
+  t,
   className,
 }: LanguageSelectorProps): JSX.Element {
+  const languages: LanguageOption[] = [
+    { code: 'fr', label: t.language.french, flag: '🇫🇷' },
+    { code: 'en', label: t.language.english, flag: '🇬🇧' },
+  ];
+
   return (
     <div className={cn('flex items-center gap-2', className)}>
-      {LANGUAGES.map((lang) => (
+      {languages.map((lang) => (
         <motion.button
           key={lang.code}
           onClick={() => onLanguageChange(lang.code)}

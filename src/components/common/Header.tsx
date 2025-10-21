@@ -2,13 +2,15 @@ import { Volume2 } from 'lucide-react';
 import { SlideInFromTop, PulsingIcon } from '@/components/animated';
 import LanguageSelector from './LanguageSelector';
 import { Language } from '@/types';
+import { TranslationKeys } from '@/locales';
 
 interface HeaderProps {
   currentLanguage: Language;
   onLanguageChange: (lang: Language) => void;
+  t: TranslationKeys;
 }
 
-function Header({ currentLanguage, onLanguageChange }: HeaderProps): JSX.Element {
+function Header({ currentLanguage, onLanguageChange, t }: HeaderProps): JSX.Element {
   return (
     <SlideInFromTop
       as="header"
@@ -21,11 +23,17 @@ function Header({ currentLanguage, onLanguageChange }: HeaderProps): JSX.Element
               <Volume2 className="w-12 h-12 text-primary" strokeWidth={2.5} />
             </PulsingIcon>
             <h1 className="text-5xl font-bold bg-gradient-to-r from-primary via-orange-400 to-primary bg-clip-text text-transparent tracking-wider">
-              CS 1.6 SOUNDBOARD
+              {t.header.title}
             </h1>
           </div>
-          <p className="text-muted-foreground text-sm tracking-widest uppercase">ÇA VA PÉTER 💥</p>
-          <LanguageSelector currentLanguage={currentLanguage} onLanguageChange={onLanguageChange} />
+          <p className="text-muted-foreground text-sm tracking-widest uppercase">
+            {t.header.subtitle}
+          </p>
+          <LanguageSelector
+            currentLanguage={currentLanguage}
+            onLanguageChange={onLanguageChange}
+            t={t}
+          />
         </div>
       </div>
     </SlideInFromTop>
