@@ -17,6 +17,10 @@ export const fr = {
   },
   footer: {
     copyright: 'Counter-Strike 1.6 © Valve Corporation',
+    support: 'Vous aimez ce soundboard ?',
+  },
+  support: {
+    buyMeCoffee: '☕ Offrez-moi un café',
   },
   language: {
     french: 'Français',

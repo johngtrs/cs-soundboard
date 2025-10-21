@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Header from '@/components/common/Header';
 import CategorySection from '@/components/common/CategorySection';
 import SearchBar from '@/components/common/SearchBar';
+import BuyMeCoffeeButton from '@/components/common/BuyMeCoffeeButton';
 import { useAudioPlayer } from '@/hooks/useAudioPlayer';
 import { useLanguage } from '@/hooks/useLanguage';
 import { SOUNDS } from '@/constants/sounds';
@@ -113,9 +114,18 @@ function Soundboard(): JSX.Element {
           delay={0.5}
           duration={0.4}
           slideY={0}
-          className="mt-16 text-center text-muted-foreground text-base sm:text-sm"
+          className="mt-16 text-center space-y-6"
         >
-          <p className="tracking-wider">{t.footer.copyright}</p>
+          {/* Support section */}
+          <div className="flex flex-col items-center gap-4">
+            <p className="text-base sm:text-lg text-foreground font-semibold">{t.footer.support}</p>
+            <BuyMeCoffeeButton />
+          </div>
+
+          {/* Copyright */}
+          <p className="text-muted-foreground text-base sm:text-sm tracking-wider">
+            {t.footer.copyright}
+          </p>
         </FadeIn>
       </FadeIn>
     </div>
