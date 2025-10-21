@@ -20,12 +20,12 @@ function CategorySection({
 }: CategorySectionProps): JSX.Element {
   return (
     <FadeIn className="mb-8">
-      <h2 className="text-2xl font-bold text-primary mb-4 tracking-wider uppercase flex items-center gap-3">
-        <PulsingBar className="w-2 h-8 bg-primary rounded-full" />
-        {title}
+      <h2 className="text-lg sm:text-2xl font-bold text-primary mb-4 tracking-wider uppercase flex items-center gap-2 sm:gap-3">
+        <PulsingBar className="w-1.5 sm:w-2 h-6 sm:h-8 bg-primary rounded-full flex-shrink-0" />
+        <span className="truncate">{title}</span>
       </h2>
 
-      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
         <AnimatePresence mode="popLayout">
           {sounds.map((sound) => (
             <motion.div

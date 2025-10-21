@@ -17,16 +17,19 @@ function Header({ currentLanguage, onLanguageChange, t }: HeaderProps): JSX.Elem
       className="w-full py-8 px-6 bg-gradient-to-b from-slate-950/80 to-transparent backdrop-blur-sm"
     >
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col items-center justify-center gap-6">
-          <div className="flex items-center gap-4">
+        <div className="flex flex-col items-center justify-center gap-4 sm:gap-6">
+          <div className="flex items-center gap-2 sm:gap-4 justify-center">
             <PulsingIcon>
-              <Volume2 className="w-12 h-12 text-primary" strokeWidth={2.5} />
+              <Volume2
+                className="w-8 h-8 sm:w-12 sm:h-12 text-primary flex-shrink-0"
+                strokeWidth={2.5}
+              />
             </PulsingIcon>
-            <h1 className="text-5xl font-bold bg-gradient-to-r from-primary via-orange-400 to-primary bg-clip-text text-transparent tracking-wider">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-orange-400 to-primary bg-clip-text text-transparent tracking-wider text-center">
               {t.header.title}
             </h1>
           </div>
-          <p className="text-muted-foreground text-sm tracking-widest uppercase">
+          <p className="text-muted-foreground text-xs sm:text-sm tracking-widest uppercase text-center px-4">
             {t.header.subtitle}
           </p>
           <LanguageSelector

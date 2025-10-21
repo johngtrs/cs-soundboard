@@ -14,20 +14,20 @@ function SearchBar({ value, onChange, placeholder }: SearchBarProps): JSX.Elemen
 
   return (
     <FadeIn delay={0.2} className="mb-8">
-      <div className="relative max-w-2xl mx-auto">
+      <div className="relative max-w-2xl mx-auto px-2 sm:px-0">
         <div className="relative flex items-center">
-          <Search className="absolute left-4 w-5 h-5 text-muted-foreground pointer-events-none" />
+          <Search className="absolute left-3 sm:left-4 w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground pointer-events-none" />
           <input
             type="text"
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
-            className="w-full pl-12 pr-12 py-4 rounded-lg bg-slate-800/50 border-2 border-slate-700 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors duration-200 backdrop-blur-sm"
+            className="w-full pl-10 sm:pl-12 pr-10 sm:pr-12 py-3 sm:py-4 text-sm sm:text-base rounded-lg bg-slate-800/50 border-2 border-slate-700 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors duration-200 backdrop-blur-sm"
           />
           {value && (
             <button
               onClick={handleClear}
-              className="absolute right-4 p-1 rounded-full hover:bg-slate-700 transition-colors duration-200 group"
+              className="absolute right-3 sm:right-4 p-1 rounded-full hover:bg-slate-700 transition-colors duration-200 group"
               aria-label="Effacer la recherche"
             >
               <X className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />

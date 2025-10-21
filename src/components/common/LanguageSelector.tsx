@@ -28,7 +28,7 @@ function LanguageSelector({
           key={lang.code}
           onClick={() => onLanguageChange(lang.code)}
           className={cn(
-            'flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all',
+            'flex items-center gap-1.5 sm:gap-2 px-2 py-1.5 sm:px-4 sm:py-2 rounded-lg font-medium transition-all',
             'border-2',
             currentLanguage === lang.code
               ? 'border-primary bg-primary/20 text-primary'
@@ -40,8 +40,10 @@ function LanguageSelector({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2 }}
         >
-          <span className="text-xl">{lang.flag}</span>
-          <span className="text-sm font-semibold">{lang.label}</span>
+          <span className="text-lg sm:text-xl">{lang.flag}</span>
+          <span className="text-xs sm:text-sm font-semibold hidden min-[400px]:inline">
+            {lang.label}
+          </span>
         </motion.button>
       ))}
     </div>
