@@ -40,7 +40,7 @@ function CategorySection({
               <SoundButton
                 label={sound.label}
                 onClick={() => onPlaySound(sound)}
-                isPlaying={currentSound === sound.file}
+                isPlaying={currentSound?.endsWith(sound.file) ?? false}
               />
             </motion.div>
           ))}

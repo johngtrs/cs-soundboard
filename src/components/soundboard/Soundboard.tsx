@@ -4,6 +4,7 @@ import Header from '@/components/common/Header';
 import CategorySection from '@/components/common/CategorySection';
 import SearchBar from '@/components/common/SearchBar';
 import { useAudioPlayer } from '@/hooks/useAudioPlayer';
+import { useLanguage } from '@/hooks/useLanguage';
 import { SOUNDS, CATEGORY_LABELS } from '@/constants/sounds';
 import { Sound, SoundCategory } from '@/types';
 import { FadeIn, FloatingOrb } from '@/components/animated';
@@ -11,6 +12,7 @@ import { matchesSearch } from '@/utils/string';
 
 function Soundboard(): JSX.Element {
   const { play, currentSound } = useAudioPlayer();
+  const { language, setLanguage, getAudioPath } = useLanguage();
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const categorizedSounds = useMemo(() => {
@@ -35,7 +37,8 @@ function Soundboard(): JSX.Element {
   }, [searchQuery]);
 
   const handlePlaySound = (sound: Sound): void => {
-    play(sound.file);
+    const localizedPath = getAudioPath(sound.file);
+    play(localizedPath);
   };
 
   const hasResults = useMemo(() => {
@@ -44,7 +47,7 @@ function Soundboard(): JSX.Element {
 
   return (
     <div className="min-h-screen pb-12">
-      <Header />
+      <Header currentLanguage={language} onLanguageChange={setLanguage} />
 
       <FadeIn as="main" delay={0.15} slideY={0} className="max-w-7xl mx-auto px-6">
         {/* Background decorative elements */}

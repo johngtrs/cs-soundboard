@@ -6,11 +6,17 @@ description: Soundboard audio implementation and CS 1.6 theme guidelines
 
 ## Audio Files Structure
 
-All Counter Strike 1.6 radio sounds are located in [radio/](mdc:radio/). These are authentic CS 1.6 audio files that should be integrated into the soundboard.
+Counter Strike 1.6 radio sounds are organized by language in the `public` directory:
+
+- **French sounds**: `public/fr/` - Voix françaises
+- **English sounds**: `public/en/` - English voices
+
+These are authentic CS 1.6 audio files that are dynamically loaded based on the user's language selection.
 
 ### Available Sounds Categorization
 
 #### Team Communication
+
 - `ct_affirm.wav` - CT Affirmative
 - `ct_backup.wav` - CT Need Backup
 - `ct_coverme.wav` - CT Cover Me
@@ -24,6 +30,7 @@ All Counter Strike 1.6 radio sounds are located in [radio/](mdc:radio/). These a
 - `negative.wav` - Negative
 
 #### Commands
+
 - `com_followcom.wav` - Follow Me Commander
 - `com_getinpos.wav` - Get in Position
 - `com_go.wav` - Go Go Go
@@ -37,6 +44,7 @@ All Counter Strike 1.6 radio sounds are located in [radio/](mdc:radio/). These a
 - `takepoint.wav` - Take the Point
 
 #### Tactical Actions
+
 - `fallback.wav` - Fall Back
 - `regroup.wav` - Regroup Team
 - `position.wav` - Hold This Position
@@ -45,6 +53,7 @@ All Counter Strike 1.6 radio sounds are located in [radio/](mdc:radio/). These a
 - `getout.wav` - Get Out of There
 
 #### Game Events
+
 - `bombpl.wav` - Bomb Planted
 - `bombdef.wav` - Bomb Defused
 - `blow.wav` - Bomb Exploding
@@ -56,6 +65,7 @@ All Counter Strike 1.6 radio sounds are located in [radio/](mdc:radio/). These a
 - `hosdown.wav` - Hostage Down
 
 #### Combat Feedback
+
 - `enemydown.wav` - Enemy Down
 - `matedown.wav` - Teammate Down
 - `elim.wav` - Sector Clear
@@ -67,8 +77,39 @@ All Counter Strike 1.6 radio sounds are located in [radio/](mdc:radio/). These a
 
 ## Audio Implementation Requirements
 
+### Language System
+
+The soundboard supports multiple languages with a dedicated hook:
+
+```tsx
+// hooks/useLanguage.ts
+export const useLanguage = (): UseLanguageReturn => {
+  const [language, setLanguageState] = useState<Language>('fr');
+
+  const getAudioPath = (fileName: string): string => {
+    return `/${language}/${fileName}`;
+  };
+
+  return { language, setLanguage, getAudioPath };
+};
+```
+
+**Features:**
+
+- Language selection persisted in localStorage
+- Dynamic audio path generation based on selected language
+- Seamless switching between French and English voices
+- Default language: French
+
+**Supported Languages:**
+
+- `fr` (Français) 🇫🇷
+- `en` (English) 🇬🇧
+
 ### Audio Player Hook
+
 Create a custom hook that handles:
+
 - Multiple simultaneous sounds (CS 1.6 allows overlapping radio commands)
 - Volume control with persistence (localStorage)
 - Preloading sounds for instant playback
@@ -93,6 +134,7 @@ export function useAudioPlayer(options?: AudioPlayerOptions) {
 ```
 
 ### Sound Manager Requirements
+
 - Allow multiple sounds to play at once (authentic CS 1.6 behavior)
 - Implement a sound queue or limit (e.g., max 5 simultaneous sounds)
 - Provide global volume control
@@ -104,7 +146,9 @@ export function useAudioPlayer(options?: AudioPlayerOptions) {
 ### Visual Design
 
 #### Color Palette
+
 Use colors inspired by CS 1.6's interface:
+
 - **Background**: Dark grays (#1a1a1a, #2d2d2d)
 - **Primary**: Orange/yellow (#ff9800, #ffa726) - reminiscent of bomb timer
 - **Secondary**: Blue (#1976d2, #2196f3) - CT team color
@@ -113,11 +157,13 @@ Use colors inspired by CS 1.6's interface:
 - **Text**: Light gray (#e0e0e0), white (#ffffff)
 
 #### Typography
+
 - Use monospace or system fonts for that tactical/military feel
 - Consider fonts like: 'Courier New', 'Consolas', 'Monaco', or similar
 - Clear, readable labels for all radio commands
 
 #### Layout Suggestions
+
 1. **Grid Layout**: Display sound buttons in a responsive grid
 2. **Category Tabs**: Organize by Team Communication, Commands, Events, etc.
 3. **Search Bar**: Quick filter for finding specific commands
@@ -126,7 +172,16 @@ Use colors inspired by CS 1.6's interface:
 
 ### UI Components to Create
 
+#### Language Selector
+
+- Toggle between French 🇫🇷 and English 🇬🇧 voices
+- Visual indication of selected language
+- Animated transitions on language change
+- Persists selection in localStorage
+- Located in the header for easy access
+
 #### Sound Button
+
 - Display sound label (e.g., "Go Go Go")
 - Show keyboard shortcut if assigned
 - Visual state: idle, hover, playing, disabled
@@ -134,21 +189,25 @@ Use colors inspired by CS 1.6's interface:
 - Consider showing waveform or equalizer animation
 
 #### Category Filter
+
 - Tabs or buttons to filter by category
 - Show count of sounds in each category
 - Smooth transitions between categories
 
 #### Search/Filter
+
 - Real-time search across sound names and categories
 - Clear button to reset search
 - Highlight matching text
 
 #### Volume Control
+
 - Slider with visual feedback
 - Mute/unmute toggle
 - Persist volume settings
 
 #### Settings Panel (Optional)
+
 - Keyboard shortcut configuration
 - Theme customization
 - Sound quality settings
@@ -157,19 +216,20 @@ Use colors inspired by CS 1.6's interface:
 ### Animation Guidelines
 
 #### Button Interactions
+
 ```tsx
 const soundButtonAnimation = {
   idle: {
     scale: 1,
-    backgroundColor: 'rgba(45, 45, 45, 1)'
+    backgroundColor: 'rgba(45, 45, 45, 1)',
   },
   hover: {
     scale: 1.05,
     backgroundColor: 'rgba(255, 152, 0, 0.2)',
-    transition: { duration: 0.2 }
+    transition: { duration: 0.2 },
   },
   tap: {
-    scale: 0.95
+    scale: 0.95,
   },
   playing: {
     scale: [1, 1.05, 1],
@@ -177,18 +237,20 @@ const soundButtonAnimation = {
     transition: {
       duration: 0.5,
       repeat: Infinity,
-      ease: 'easeInOut'
-    }
-  }
+      ease: 'easeInOut',
+    },
+  },
 };
 ```
 
 #### Page Transitions
+
 - Smooth category switching
 - Staggered grid item animations on load
 - Fade in/out for search results
 
 #### Visual Feedback
+
 - Ripple effect on button press
 - Pulse animation during sound playback
 - Subtle glow effects for active sounds
@@ -196,6 +258,7 @@ const soundButtonAnimation = {
 ## Data Structure
 
 ### Sound Configuration
+
 Create a centralized sound configuration file:
 
 ```tsx
@@ -208,7 +271,7 @@ export const SOUNDS: Sound[] = [
     path: '/radio/ct_affirm.wav',
     category: 'team-communication',
     team: 'ct',
-    keyboardShortcut: '1'
+    keyboardShortcut: '1',
   },
   {
     id: 'go',
@@ -216,7 +279,7 @@ export const SOUNDS: Sound[] = [
     label: 'Go Go Go',
     path: '/radio/go.wav',
     category: 'commands',
-    keyboardShortcut: 'g'
+    keyboardShortcut: 'g',
   },
   // ... all other sounds
 ];
@@ -225,13 +288,14 @@ export const SOUND_CATEGORIES = [
   { id: 'team-communication', label: 'Team Communication', icon: '💬' },
   { id: 'commands', label: 'Commands', icon: '⚡' },
   { id: 'game-events', label: 'Game Events', icon: '🎮' },
-  { id: 'combat', label: 'Combat', icon: '⚔️' }
+  { id: 'combat', label: 'Combat', icon: '⚔️' },
 ] as const;
 ```
 
 ## Features to Implement
 
 ### Core Features
+
 1. ✅ Play any CS 1.6 radio sound with one click
 2. ✅ Visual feedback when sound is playing
 3. ✅ Volume control
@@ -240,6 +304,7 @@ export const SOUND_CATEGORIES = [
 6. ✅ Search functionality
 
 ### Enhanced Features (Nice to Have)
+
 1. 🎯 Keyboard shortcuts for quick access
 2. 🎯 Favorites/Recently played section
 3. 🎯 Sound history
@@ -252,6 +317,7 @@ export const SOUND_CATEGORIES = [
 10. 🎯 Custom sound playlists
 
 ### Advanced Features (Stretch Goals)
+
 1. 🚀 Record combinations/sequences of sounds
 2. 🚀 Upload custom sounds
 3. 🚀 Social sharing of sound combinations
@@ -261,6 +327,7 @@ export const SOUND_CATEGORIES = [
 ## Accessibility Considerations
 
 ### Keyboard Navigation
+
 - Tab through all sound buttons
 - Enter or Space to play sound
 - Arrow keys to navigate grid
@@ -268,12 +335,14 @@ export const SOUND_CATEGORIES = [
 - Custom shortcuts for favorites
 
 ### Screen Reader Support
+
 - Proper ARIA labels for all buttons
 - Announce when sound starts/stops playing
 - Describe keyboard shortcuts
 - Provide text alternatives for visual states
 
 ### Visual Accessibility
+
 - High contrast mode support
 - Sufficient color contrast ratios (WCAG AA minimum)
 - Don't rely solely on color to convey information
@@ -282,18 +351,21 @@ export const SOUND_CATEGORIES = [
 ## Performance Optimization
 
 ### Audio Loading Strategy
+
 1. **Lazy Load**: Load sounds on demand (first approach)
 2. **Preload Popular**: Preload frequently used sounds
 3. **Preload All**: Load all sounds on app init (if bundle size allows)
 4. **Service Worker**: Cache audio files for offline use
 
 ### Bundle Optimization
+
 - Use dynamic imports for large components
 - Implement code splitting by route/feature
 - Optimize audio file sizes (consider compression)
 - Use tree-shaking to eliminate unused code
 
 ### Memory Management
+
 - Clean up audio instances when components unmount
 - Limit number of simultaneous audio instances
 - Implement audio pooling if playing many sounds rapidly
@@ -301,6 +373,7 @@ export const SOUND_CATEGORIES = [
 ## Testing Considerations
 
 ### Manual Testing Checklist
+
 - [ ] All sounds play correctly
 - [ ] Multiple sounds can overlap
 - [ ] Volume control works
